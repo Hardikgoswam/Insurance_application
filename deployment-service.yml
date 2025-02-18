@@ -1,0 +1,363 @@
+# Deployment configuration for the admin-server service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-server
+  namespace: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: admin-server
+  template:
+    metadata:
+      labels:
+        app: admin-server
+    spec:
+      containers:
+        - name: admin-server
+          image: hardik121/Admin-Server:latest
+          ports:
+            - containerPort: 9090
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-server
+  namespace: webapps
+spec:
+  selector:
+    app: admin-server
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090
+  type: LoadBalancer
+
+# Deployment configuration for the api-gateway service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: hardik121/ApplicationAPIGateway:latest
+          ports:
+            - containerPort: 7777
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+  namespace: webapps
+spec:
+  selector:
+    app: api-gateway
+  ports:
+    - protocol: TCP
+      port: 7777
+      targetPort: 7777
+  type: LoadBalancer
+
+# Deployment configuration for the application-registrations service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application-registrations
+  namespace: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: application-registrations
+  template:
+    metadata:
+      labels:
+        app: application-registrations
+    spec:
+      containers:
+        - name: application-registrations
+          image: hardik121/ApplicationRegistrations:latest
+          ports:
+            - containerPort: 7071
+apiVersion: v1
+kind: Service
+metadata:
+  name: application-registrations
+  namespace: webapps
+spec:
+  selector:
+    app: application-registrations
+  ports:
+    - protocol: TCP
+      port: 7071
+      targetPort: 7071
+  type: LoadBalancer
+
+# Deployment configuration for the config-server service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  namespace: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: config-server
+  template:
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      containers:
+        - name: config-server
+          image: hardik121/Config-Server:latest
+          ports:
+            - containerPort: 8080
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+  namespace: webapps
+spec:
+  selector:
+    app: config-server
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+# Deployment configuration for the data-collection service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-collection
+  namespace: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: data-collection
+  template:
+    metadata:
+      labels:
+        app: data-collection
+    spec:
+      containers:
+        - name: data-collection
+          image: hardik121/DataCollectionService:latest
+          ports:
+            - containerPort: 7077
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-collection
+  namespace: webapps
+spec:
+  selector:
+    app: data-collection
+  ports:
+    - protocol: TCP
+      port: 7077
+      targetPort: 7077
+  type: LoadBalancer
+
+# Deployment configuration for the eligibility-service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eligibility-service
+  namespace: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eligibility-service
+  template:
+    metadata:
+      labels:
+        app: eligibility-service
+    spec:
+      containers:
+        - name: eligibility-service
+          image: hardik121/EligibilityDeterminationService:latest
+          ports:
+            - containerPort: 7073
+apiVersion: v1
+kind: Service
+metadata:
+  name: eligibility-service
+  namespace: webapps
+spec:
+  selector:
+    app: eligibility-service
+  ports:
+    - protocol: TCP
+      port: 7073
+      targetPort: 7073
+  type: LoadBalancer
+
+# Deployment configuration for the eureka-server service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-server
+  namespace: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eureka-server
+  template:
+    metadata:
+      labels:
+        app: eureka-server
+    spec:
+      containers:
+        - name: eureka-server
+          image: hardik121/EurekaServer:latest
+          ports:
+            - containerPort: 8761
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-server
+  namespace: webapps
+spec:
+  selector:
+    app: eureka-server
+  ports:
+    - protocol: TCP
+      port: 8761
+      targetPort: 8761
+  type: LoadBalancer
+
+# Deployment configuration for the admin-api service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-api
+  namespace: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: admin-api
+  template:
+    metadata:
+      labels:
+        app: admin-api
+    spec:
+      containers:
+        - name: admin-api
+          image: hardik121/JRTP701-AdminAPI:latest
+          ports:
+            - containerPort: 7074
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-api
+  namespace: webapps
+spec:
+  selector:
+    app: admin-api
+  ports:
+    - protocol: TCP
+      port: 7074
+      targetPort: 7074
+  type: LoadBalancer
+
+# Deployment configuration for the benefit-insurance-api service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: benefit-insurance-api
+  namespace: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: benefit-insurance-api
+  template:
+    metadata:
+      labels:
+        app: benefit-insurance-api
+    spec:
+      containers:
+        - name: benefit-insurance-api
+          image: hardik121/JRTP701-BenefitInsuranceAPI:latest
+          ports:
+            - containerPort: 7076
+apiVersion: v1
+kind: Service
+metadata:
+  name: benefit-insurance-api
+  namespace: webapps
+spec:
+  selector:
+    app: benefit-insurance-api
+  ports:
+    - protocol: TCP
+      port: 7076
+      targetPort: 7076
+  type: LoadBalancer
+
+# Deployment configuration for the correspondence-api service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: correspondence-api
+  namespace: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: correspondence-api
+  template:
+    metadata:
+      labels:
+        app: correspondence-api
+    spec:
+      containers:
+        - name: correspondence-api
+          image: hardik121/JRTP701-CorrespondenceAPI:latest
+          ports:
+            - containerPort: 7075
+apiVersion: v1
+kind: Service
+metadata:
+  name: correspondence-api
+  namespace: webapps
+spec:
+  selector:
+    app: correspondence-api
+  ports:
+    - protocol: TCP
+      port: 7075
+      targetPort: 7075
+  type: LoadBalancer
+
+# Deployment configuration for the ssn-service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssn-service
+  namespace: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ssn-service
+  template:
+    metadata:
