@@ -1,0 +1,52 @@
+server:
+  port: 7777
+eureka:
+  client:
+    service-url:
+       default-zone: http://localhost:8761/eureka
+spring:
+  application:
+    name: ApplicationAPIGateway
+  cloud: 
+    gateway: 
+      routes: 
+        - id: ApplicationRegistrations
+          uri: http://localhost:7071/
+          predicates: 
+            - Path=/CitizenAR-api/**
+        - id: DataCollectionService
+          uri: http://localhost:7077/
+          predicates: 
+            - Path=/dc-api/**
+        - id: EligibilityDeterminationService
+          uri: http://localhost:7073/
+          predicates: 
+            - Path=/eg-api/**
+        - id: JRTP701-AdminService
+          uri: http://localhost:7074/
+          predicates: 
+            - Path=/plan-api/**
+        - id: JRTP701-BIService
+          uri: http://localhost:7076/
+          predicates: 
+            - Path=/bi-api/**
+        - id: JRTP701-CorrespondenceAPI
+          uri: http://localhost:7075/
+          predicates: 
+            - Path=/co-triggers-api/**
+#        - id: SSNNumber_USA_GOVT
+#          uri: http://localhost:9090/
+#          predicates: 
+#            - Path=/co-triggers-api/**
+#        - id: 
+#          uri:
+#          predicates: 
+#            - Path=
+#        - id: 
+#          uri:
+#          predicates: 
+#            - Path=
+#        - id: 
+#          uri:
+#          predicates: 
+#            - Path=
