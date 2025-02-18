@@ -6,20 +6,7 @@ pipeline {
         K8S_CLUSTER_NAME = 'EKS-1'
         K8S_NAMESPACE = 'webapps'
         K8S_SERVER_URL = 'https://A30681710B592A1E6E970C49FD6627B6.gr7.ap-south-1.eks.amazonaws.com'
-        MICRO_SERVICES = [
-            "admin-server", 
-            "api-gateway", 
-            "application-registrations", 
-            "config-server", 
-            "data-collection", 
-            "eligibility-service", 
-            "eureka-server", 
-            "admin-api", 
-            "benefit-insurance-api", 
-            "correspondence-api", 
-            "user-mgmt-api", 
-            "ssn-service"
-        ]
+        MICRO_SERVICES = "admin-server,api-gateway,application-registrations,config-server,data-collection,eligibility-service,eureka-server,admin-api,benefit-insurance-api,correspondence-api,user-mgmt-api,ssn-service"
     }
 
     stages {
@@ -32,8 +19,11 @@ pipeline {
         stage('Build & Push Docker Images') {
             steps {
                 script {
+                    // Convert the MICRO_SERVICES string to a list
+                    def services = MICRO_SERVICES.split(',')
+
                     // Loop through each microservice and build its Docker image
-                    for (service in MICRO_SERVICES) {
+                    for (service in services) {
                         def dockerImagePath = "./${service}"  // Path to the microservice directory
                         def imageName = "${DOCKERHUB_USER}/${service}:latest"
                         echo "Building Docker image for ${service}..."
