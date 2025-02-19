@@ -6,7 +6,7 @@ pipeline {
         K8S_CLUSTER_NAME = 'EKS-1'
         K8S_NAMESPACE = 'webapps'
         K8S_SERVER_URL = 'https://A30681710B592A1E6E970C49FD6627B6.gr7.ap-south-1.eks.amazonaws.com'
-        MICRO_SERVICES = "admin-server,api-gateway,application-registrations,config-server,data-collection,eligibility-service,eureka-server,admin-api,benefit-insurance-api,correspondence-api,user-mgmt-api,ssn-service"
+        MICRO_SERVICES = "Admin-Server,api-gateway,application-registrations,config-server,data-collection,eligibility-service,eureka-server,admin-api,benefit-insurance-api,correspondence-api,user-mgmt-api,ssn-service"
     }
 
     stages {
