@@ -1,0 +1,21 @@
+server:
+  port: 7073
+spring:
+  application:
+    name: EligibilityDeterminationService
+  boot:
+     admin:
+       client:
+          url: http://localhost:9999
+  config: 
+     import: optional:configserver:http://localhost:8080
+plan:
+   name: SNAP	
+ar:
+  ssa-web:
+    url: http://localhost:9090/ssa-web-api/find/{ssn}
+  state: california
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
