@@ -19,17 +19,20 @@ pipeline {
         stage('Build & Push Docker Images') {
             steps {
                 script {
-                    // Convert the MICRO_SERVICES string to a list
                     def services = MICRO_SERVICES.split(',')
 
-                    // Loop through each microservice and build its Docker image
                     for (service in services) {
-                        def dockerImagePath = "./${service}"  // Path to the microservice directory
+                        def dockerImagePath = "${WORKSPACE}/${service}"
                         def imageName = "${DOCKERHUB_USER}/${service}:latest"
                         echo "Building Docker image for ${service}..."
+
                         sh """
-                            docker build -t ${imageName} -f ${dockerImagePath}/Dockerfile ${dockerImagePath}
-                            docker push ${imageName}
+                            if [ -d "${dockerImagePath}" ]; then
+                                docker build -t ${imageName} -f ${dockerImagePath}/Dockerfile ${dockerImagePath}
+                                docker push ${imageName}
+                            else
+                                echo "Directory ${dockerImagePath} not found. Skipping..."
+                            fi
                         """
                     }
                 }
@@ -39,7 +42,9 @@ pipeline {
         stage('Deploy To Kubernetes') {
             steps {
                 withKubeCredentials(kubectlCredentials: [[
+                    caCertificate: '',
                     clusterName: "${K8S_CLUSTER_NAME}",
+                    contextName: '',
                     credentialsId: 'k8-token',
                     namespace: "${K8S_NAMESPACE}",
                     serverUrl: "${K8S_SERVER_URL}"
@@ -52,7 +57,9 @@ pipeline {
         stage('Verify Deployment') {
             steps {
                 withKubeCredentials(kubectlCredentials: [[
+                    caCertificate: '',
                     clusterName: "${K8S_CLUSTER_NAME}",
+                    contextName: '',
                     credentialsId: 'k8-token',
                     namespace: "${K8S_NAMESPACE}",
                     serverUrl: "${K8S_SERVER_URL}"
